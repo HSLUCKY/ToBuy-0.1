@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.CardMessageTableMapper">
+	<resultMap id="BaseResultMap" type="com.tobuy.pojo.CardMessageTableKey">
+		<id column="from_user_id" jdbcType="INTEGER" property="fromUserId" />
+		<id column="to_card_id" jdbcType="INTEGER" property="toCardId" />
+		<id column="message_id" jdbcType="INTEGER" property="messageId" />
+	</resultMap>
+
+	<!-- ============================================================================ -->
+	<!-- ==================查找指定帖子留言=============================== -->
+	<select id="getCardsMessageByGoods" parameterType="com.tobuy.pojo.vo.message.GetMessagesesResp"
+		resultMap="ComplexGoodsMessageResp">
+
+		select messages.uid , resource_table.path , message_table.id, message_table.content, message_table.date
+		from
+		message_table,
+		(select card_message_table.message_id msgId,
+		card_message_table.from_user_id uid from card_message_table where
+		#{id} = card_message_table.to_card_id) messages,
+		user_table,
+		resource_table
+		where message_table.id in(messages.msgId) and
+		user_table.id = messages.uid
+		and user_table.head = resource_table.id
+
+	</select>
+	<!-- ============================================================================ -->
+	<!-- ========================================== -->
+	<!-- ============================================================================ -->
+	<resultMap type="com.tobuy.pojo.vo.message.GetCardsMessageEntity"
+		id="ComplexGoodsMessageResp">
+		<collection property="uid" javaType="java.util.ArrayList"
+			ofType="java.lang.Integer">
+			<result column="uid" />
+		</collection>
+		<collection property="images" javaType="java.util.ArrayList"
+			ofType="java.lang.String">
+			<result column="path" />
+		</collection>
+		<collection property="messageTables" javaType="java.util.ArrayList"
+			resultMap="messageEntity" />
+	</resultMap>
+	<resultMap type="com.tobuy.pojo.MessageTable" id="messageEntity">
+		<id property="id" column="id" javaType="java.lang.Integer"></id>
+		<result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
+		<result property="content" column="content" javaType="java.lang.String"></result>
+	</resultMap>
+	<!-- ============================================================================ -->
+
+
+	<!-- ================================================================== -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="com.tobuy.pojo.CardMessageTableKey">
+		delete from card_message_table
+		where from_user_id = #{fromUserId,jdbcType=INTEGER}
+		and to_card_id = #{toCardId,jdbcType=INTEGER}
+		and message_id = #{messageId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tobuy.pojo.CardMessageTableKey">
+		insert into card_message_table (from_user_id, to_card_id, message_id
+		)
+		values (#{fromUserId,jdbcType=INTEGER}, #{toCardId,jdbcType=INTEGER},
+		#{messageId,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.tobuy.pojo.CardMessageTableKey">
+		insert into card_message_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fromUserId != null">
+				from_user_id,
+			</if>
+			<if test="toCardId != null">
+				to_card_id,
+			</if>
+			<if test="messageId != null">
+				message_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fromUserId != null">
+				#{fromUserId,jdbcType=INTEGER},
+			</if>
+			<if test="toCardId != null">
+				#{toCardId,jdbcType=INTEGER},
+			</if>
+			<if test="messageId != null">
+				#{messageId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+</mapper>

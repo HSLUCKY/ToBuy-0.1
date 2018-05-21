@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/goodsDetailRoot"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="bottom"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <include layout="@layout/common_cardback"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/goodsDetailRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+            <include layout="@layout/common_buyinput"/>
+        </LinearLayout>
+
+
+        <include
+            layout="@layout/common_alertinput"/>
+
+    </FrameLayout>
+</LinearLayout>

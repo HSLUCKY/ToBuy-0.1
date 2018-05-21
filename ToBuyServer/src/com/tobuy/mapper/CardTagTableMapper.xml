@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.CardTagTableMapper">
+  <resultMap id="BaseResultMap" type="com.tobuy.pojo.CardTagTableKey">
+    <id column="card_id" jdbcType="INTEGER" property="cardId" />
+    <id column="tag_id" jdbcType="INTEGER" property="tagId" />
+  </resultMap>
+  
+  <!-- ======================================================================== -->
+	<select id="getTagById" parameterType="java.lang.Integer" resultType="com.tobuy.pojo.TagTable">
+		select tag_table.* from tag_table, card_tag_table where tag_table.id = card_tag_table.card_id
+	</select>
+  
+  <!-- ======================================================================== -->
+  <!-- ======================================================================== -->
+  
+  	<insert id="insertCardByTagIds" parameterType="java.util.HashMap">
+  		
+  		insert into card_tag_table value
+  		<foreach collection="tags" index="index" item="item"  separator="," >
+  			(#{fid},#{item})
+  		</foreach>
+  	
+  	</insert>
+  
+  
+  <!-- ======================================================================== -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.tobuy.pojo.CardTagTableKey">
+    delete from card_tag_table
+    where card_id = #{cardId,jdbcType=INTEGER}
+      and tag_id = #{tagId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tobuy.pojo.CardTagTableKey">
+    insert into card_tag_table (card_id, tag_id)
+    values (#{cardId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tobuy.pojo.CardTagTableKey">
+    insert into card_tag_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardId != null">
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

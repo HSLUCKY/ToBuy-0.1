@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.UserTableMapper">
+	<resultMap id="BaseResultMap" type="com.tobuy.pojo.UserTable">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="head" jdbcType="INTEGER" property="head" />
+		<result column="gender" jdbcType="INTEGER" property="gender" />
+		<result column="date" jdbcType="TIMESTAMP" property="date" />
+		<result column="ps" jdbcType="VARCHAR" property="ps" />
+		<result column="home_count" jdbcType="INTEGER" property="homeCount" />
+		<result column="card_count" jdbcType="INTEGER" property="cardCount" />
+		<result column="browse_count" jdbcType="INTEGER" property="browseCount" />
+		<result column="message_count" jdbcType="INTEGER" property="messageCount" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, username, password, head, gender, date, ps, home_count,
+		card_count,
+		browse_count,
+		message_count
+	</sql>
+
+
+	<!-- ===================================================================================== -->
+
+	<select id="loadUsersByToId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select distinct id, username, head, gender, ps, home_count,
+		card_count, browse_count, message_count
+		from user_table, (select
+		from_user_id fids from user_message_table where
+		#{tid}=user_message_table.to_user_id) f_uids
+		where user_table.id
+		in(f_uids.fids)
+	</select>
+
+	<!-- ===================================================================================== -->
+	<!-- ===================================================================================== -->
+	<!-- ===================================================================================== -->
+
+
+	<select id="selectByLogin" parameterType="java.util.HashMap" resultType="com.tobuy.pojo.UserTable" >
+		select id, username, head, gender, date, ps, home_count homeCount ,
+		card_count cardCount,
+		browse_count browseCount, 
+		message_count messageCount
+		from user_table
+		where
+		username=#{username, jdbcType=VARCHAR}
+		and
+		password=#{password,
+		jdbcType=VARCHAR}
+	</select>
+
+
+	<!-- ===================================================================================== -->
+	<!-- ===================================================================================== -->
+	<update id="updateAccount" parameterType="com.tobuy.pojo.UserTable">
+
+		update user_table
+		set
+		<if test="username != null">
+			username = #{username}
+		</if>
+		<if test="gender != null">
+			,gender = #{gender}
+		</if>
+		<if test="date != null">
+			,date = #{date}
+		</if>
+		<if test="ps != null">
+			,ps = #{ps}
+		</if>
+		where
+		user_table.id = #{id}
+	</update>
+
+
+	<!-- ===================================================================================== -->
+	<!-- ===================================================================================== -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_table
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		user_table
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tobuy.pojo.UserTable">
+		insert into user_table (id,
+		username, password,
+		head, gender, date,
+		ps, home_count, card_count,
+		browse_count, message_count)
+		values (#{id,jdbcType=INTEGER},
+		#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{head,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER},
+		#{date,jdbcType=TIMESTAMP},
+		#{ps,jdbcType=VARCHAR},
+		#{homeCount,jdbcType=INTEGER},
+		#{cardCount,jdbcType=INTEGER},
+		#{browseCount,jdbcType=INTEGER}, #{messageCount,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tobuy.pojo.UserTable">
+		insert into user_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="head != null">
+				head,
+			</if>
+			<if test="gender != null">
+				gender,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="ps != null">
+				ps,
+			</if>
+			<if test="homeCount != null">
+				home_count,
+			</if>
+			<if test="cardCount != null">
+				card_count,
+			</if>
+			<if test="browseCount != null">
+				browse_count,
+			</if>
+			<if test="messageCount != null">
+				message_count,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="head != null">
+				#{head,jdbcType=INTEGER},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ps != null">
+				#{ps,jdbcType=VARCHAR},
+			</if>
+			<if test="homeCount != null">
+				#{homeCount,jdbcType=INTEGER},
+			</if>
+			<if test="cardCount != null">
+				#{cardCount,jdbcType=INTEGER},
+			</if>
+			<if test="browseCount != null">
+				#{browseCount,jdbcType=INTEGER},
+			</if>
+			<if test="messageCount != null">
+				#{messageCount,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tobuy.pojo.UserTable">
+		update user_table
+		<set>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="head != null">
+				head = #{head,jdbcType=INTEGER},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ps != null">
+				ps = #{ps,jdbcType=VARCHAR},
+			</if>
+			<if test="homeCount != null">
+				home_count = #{homeCount,jdbcType=INTEGER},
+			</if>
+			<if test="cardCount != null">
+				card_count = #{cardCount,jdbcType=INTEGER},
+			</if>
+			<if test="browseCount != null">
+				browse_count = #{browseCount,jdbcType=INTEGER},
+			</if>
+			<if test="messageCount != null">
+				message_count = #{messageCount,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tobuy.pojo.UserTable">
+		update user_table
+		set username = #{username,jdbcType=VARCHAR},
+		password =
+		#{password,jdbcType=VARCHAR},
+		head = #{head,jdbcType=INTEGER},
+		gender =
+		#{gender,jdbcType=INTEGER},
+		date = #{date,jdbcType=TIMESTAMP},
+		ps =
+		#{ps,jdbcType=VARCHAR},
+		home_count = #{homeCount,jdbcType=INTEGER},
+		card_count = #{cardCount,jdbcType=INTEGER},
+		browse_count =
+		#{browseCount,jdbcType=INTEGER},
+		message_count =
+		#{messageCount,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

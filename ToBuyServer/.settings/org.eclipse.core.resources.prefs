@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/com/tobuy/pojo/vo/card/GetCardListResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/card/GetDetailCardResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/card/PublishCardResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/goods/GetGoodsDetailResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/history/GetHistoryListResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/history/SendHistoryListResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/message/GetMessagesesResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/resource/ResourceResp.java=UTF-8
+encoding//src/com/tobuy/pojo/vo/tag/TagsResp.java=UTF-8

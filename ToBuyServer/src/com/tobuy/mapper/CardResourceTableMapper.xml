@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.CardResourceTableMapper">
+  <resultMap id="BaseResultMap" type="com.tobuy.pojo.CardResourceTableKey">
+    <id column="card_id" jdbcType="INTEGER" property="cardId" />
+    <id column="resource_id" jdbcType="INTEGER" property="resourceId" />
+  </resultMap>
+  
+  
+  <!-- ============================================================================= -->
+  <!-- =====================通过帖子id获得资源列表=========================== -->
+	<select id="getResourcesByCardId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select card_resource_table.resource_id from card_resource_table where card_resource_table.card_id = #{cid}
+	</select>
+  <!-- ============================================================================= -->
+  <!-- ============================================================================= -->
+  <!-- ============================================================================= -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.tobuy.pojo.CardResourceTableKey">
+    delete from card_resource_table
+    where card_id = #{cardId,jdbcType=INTEGER}
+      and resource_id = #{resourceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tobuy.pojo.CardResourceTableKey">
+    insert into card_resource_table (card_id, resource_id)
+    values (#{cardId,jdbcType=INTEGER}, #{resourceId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tobuy.pojo.CardResourceTableKey">
+    insert into card_resource_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardId != null">
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+
+  
+</mapper>

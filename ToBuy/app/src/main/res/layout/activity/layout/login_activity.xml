@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/mainRoot"
+              android:background="#FF9999"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/loginEdit"
+        android:background="#FF9999"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:alpha="0.7"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/username"
+            android:background="#FFFFCC"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:alpha="0.5"
+            android:inputType="text"
+            android:maxLines="1"
+            android:hint="请输入用户名"/>
+
+        <EditText
+            android:id="@+id/passowrd"
+            android:background="#FFFFCC"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/username"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="请输入密码"
+            android:maxLines="1"
+            android:alpha="0.5"
+            android:inputType="textPassword|textWebPassword"/>
+
+        <Button
+            android:id="@+id/login"
+            android:background="#CCCCFF"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/passowrd"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:text="登录"
+            android:alpha="0.6"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:gravity="top">
+        <com.focustech.tobuy.view.MyTextView
+            android:alpha="0.7"
+            android:background="#FF9999"
+            android:id="@+id/registerTurn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="注册"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

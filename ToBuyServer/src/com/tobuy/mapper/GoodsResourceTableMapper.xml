@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.GoodsResourceTableMapper">
+  <resultMap id="BaseResultMap" type="com.tobuy.pojo.GoodsResourceTableKey">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <id column="resource_id" jdbcType="INTEGER" property="resourceId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.tobuy.pojo.GoodsResourceTableKey">
+    delete from goods_resource_table
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and resource_id = #{resourceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tobuy.pojo.GoodsResourceTableKey">
+    insert into goods_resource_table (goods_id, resource_id)
+    values (#{goodsId,jdbcType=INTEGER}, #{resourceId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tobuy.pojo.GoodsResourceTableKey">
+    insert into goods_resource_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <!--===========================================================================================-->
+  
+	<select id="selectResourseByIds" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		
+		select resource_id from goods_resource_table, goods_table
+		 where 
+		 goods_resource_table.goods_id = #{goods_id} and goods_table.id = goods_resource_table.goods_id
+		
+	</select>  
+  
+  
+  <!--===========================================================================================-->
+  
+  
+  
+  
+</mapper>

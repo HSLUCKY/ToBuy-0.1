@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.MessageResourceTableMapper">
+  <resultMap id="BaseResultMap" type="com.tobuy.pojo.MessageResourceTableKey">
+    <id column="message_id" jdbcType="INTEGER" property="messageId" />
+    <id column="resource_id" jdbcType="INTEGER" property="resourceId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.tobuy.pojo.MessageResourceTableKey">
+    delete from message_resource_table
+    where message_id = #{messageId,jdbcType=INTEGER}
+      and resource_id = #{resourceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tobuy.pojo.MessageResourceTableKey">
+    insert into message_resource_table (message_id, resource_id)
+    values (#{messageId,jdbcType=INTEGER}, #{resourceId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tobuy.pojo.MessageResourceTableKey">
+    insert into message_resource_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

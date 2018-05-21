@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.UserMessageTableMapper">
+	<resultMap id="BaseResultMap" type="com.tobuy.pojo.UserMessageTableKey">
+		<id column="from_user_id" jdbcType="INTEGER" property="fromUserId" />
+		<id column="to_user_id" jdbcType="INTEGER" property="toUserId" />
+		<id column="message_id" jdbcType="INTEGER" property="messageId" />
+	</resultMap>
+
+
+	<!-- ============================================================================ -->
+	<!-- ==================查找指定帖子留言=============================== -->
+	<select id="getAcceptMessageById" parameterType="com.tobuy.pojo.vo.user.GetUserMessageListResp"
+		resultMap="ComplexGoodsMessageResp">
+
+		select messages.uid , resource_table.path ,
+		message_table.id, message_table.content, message_table.date
+		from
+		message_table,
+		(select user_message_table.message_id msgId,
+		user_message_table.from_user_id uid from user_message_table where
+		#{aid} = user_message_table.to_user_id) messages,
+		user_table,
+		resource_table
+		where message_table.id in(messages.msgId) and
+		user_table.id = messages.uid
+		and user_table.head = resource_table.id
+
+	</select>
+	<!-- ============================================================================ -->
+	<!-- ========================================== -->
+	<!-- ============================================================================ -->
+	<resultMap type="com.tobuy.pojo.vo.message.GetUserMessageEntity"
+		id="ComplexGoodsMessageResp">
+		<collection property="uid" javaType="java.util.ArrayList"
+			ofType="java.lang.Integer">
+			<result column="uid" />
+		</collection>
+		<collection property="images" javaType="java.util.ArrayList"
+			ofType="java.lang.String">
+			<result column="path" />
+		</collection>
+		<collection property="messageTables" javaType="java.util.ArrayList"
+			resultMap="messageEntity" />
+	</resultMap>
+	<resultMap type="com.tobuy.pojo.MessageTable" id="messageEntity">
+		<id property="id" column="id" javaType="java.lang.Integer"></id>
+		<result property="date" column="date" jdbcType="TIMESTAMP"
+			javaType="java.util.Date"></result>
+		<result property="content" column="content" javaType="java.lang.String"></result>
+	</resultMap>
+	<!-- ============================================================================ -->
+
+	<!-- ============================================================================== -->
+
+
+
+
+
+	<!-- ============================================================================ -->
+	<!-- =====================获取聊天双方的信息==================================== -->
+	<!-- =====================交换id之后参照的发送对象不同============================== -->
+	<select id="getMessageByChat" parameterType="java.util.HashMap"
+		resultMap="messageEntity">
+		select message_table.id sid, message_table.content, message_table.date
+		from message_table,(select user_message_table.message_id mid from
+		user_message_table where user_message_table.from_user_id=#{m_id} and
+		user_message_table.to_user_id=#{t_id}) msgIds
+		where message_table.id
+		in(msgIds.mid)
+	</select>
+	<!-- ============================================================================ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- ============================================================================== -->
+
+	<select id="getSendMessageById" parameterType="com.tobuy.pojo.vo.user.GetUserMessageListResp"
+		resultMap="userSendMessageEntity">
+
+		select messages.fid , resource_table.path , message_table.id,
+		message_table.content, message_table.date
+		from
+		message_table,
+		(select
+		user_message_table.message_id msgId,
+		user_message_table.to_user_id fid
+		from user_message_table where
+		#{aid} = user_message_table.from_user_id)
+		messages,
+		user_table,
+		resource_table
+		where message_table.id
+		in(messages.msgId) and
+		user_table.id = messages.fid
+		and user_table.head
+		= resource_table.id
+
+	</select>
+	<resultMap type="com.tobuy.pojo.vo.message.GetUserSendMessageEntity"
+		id="userSendMessageEntity">
+
+		<collection property="to_user_ids" javaType="java.util.ArrayList"
+			ofType="java.lang.Integer">
+			<result column="fid" />
+		</collection>
+		<collection property="to_user_images" javaType="java.util.ArrayList"
+			ofType="java.lang.String">
+			<result column="path" />
+		</collection>
+		<collection property="to_user_messages" javaType="java.util.ArrayList"
+			resultMap="messageEntity" />
+	</resultMap>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="com.tobuy.pojo.UserMessageTableKey">
+		delete from
+		user_message_table
+		where from_user_id = #{fromUserId,jdbcType=INTEGER}
+		and to_user_id = #{toUserId,jdbcType=INTEGER}
+		and message_id =
+		#{messageId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tobuy.pojo.UserMessageTableKey">
+		insert into user_message_table
+		(from_user_id, to_user_id, message_id
+		)
+		values
+		(#{fromUserId,jdbcType=INTEGER}, #{toUserId,jdbcType=INTEGER},
+		#{messageId,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.tobuy.pojo.UserMessageTableKey">
+		insert into user_message_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fromUserId != null">
+				from_user_id,
+			</if>
+			<if test="toUserId != null">
+				to_user_id,
+			</if>
+			<if test="messageId != null">
+				message_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fromUserId != null">
+				#{fromUserId,jdbcType=INTEGER},
+			</if>
+			<if test="toUserId != null">
+				#{toUserId,jdbcType=INTEGER},
+			</if>
+			<if test="messageId != null">
+				#{messageId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+</mapper>

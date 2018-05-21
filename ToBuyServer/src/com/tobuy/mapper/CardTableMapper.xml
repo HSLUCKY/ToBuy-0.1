@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tobuy.mapper.CardTableMapper">
+  <resultMap id="BaseResultMap" type="com.tobuy.pojo.CardTable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="read_count" jdbcType="INTEGER" property="readCount" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tobuy.pojo.CardTable">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, type, date, read_count, user_id
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  
+  
+    <!-- =================================================================================== -->
+  <!-- =======================得到基本用户信息和用户发表的帖子信息============================== -->
+  <!-- =================================================================================== -->
+	<select id="getSimpleCardByCount" parameterType="java.util.HashMap" resultMap="GetSimpleCardList">
+		
+		select user_table.id uId, user_table.username, user_table.head, user_table.gender,
+		user_table.ps, user_table.home_count, 
+		user_table.card_count, user_table.browse_count, 
+		user_table.message_count, card_table.* 
+		from user_table, card_table
+		where user_table.id = card_table.user_id and card_table.type = #{type} limit #{start}, #{count}
+		
+	</select>
+  <!-- =================================================================================== -->
+  	<resultMap type="com.tobuy.pojo.vo.card.GetSimpleCardList" id="GetSimpleCardList">
+  		<collection property="by_users" javaType="java.util.ArrayList" ofType="com.tobuy.pojo.UserTable">
+  			<id property="id" column="uId"/>
+  			<result property="username" column="username"/>
+  			<result property="head" column="head"/>
+  			<result property="ps" column="ps"/>
+  			<result property="gender" column="gender" jdbcType="INTEGER" />
+  			<result property="date"  column="date"  jdbcType="TIMESTAMP"/>
+  			<result property="homeCount" column="home_count"/>
+  			<result property="cardCount" column="card_count"/>
+  			<result property="browseCount" column="browse_count"/>
+  			<result property="messageCount" column="message_count"/>
+  		</collection>
+  		<collection property="cards" javaType="java.util.ArrayList" resultMap="BaseResultMap"/>
+  	</resultMap>
+  <!-- =================================================================================== -->
+  <!-- =================================================================================== -->
+  
+  <select id="getUidByCardId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select user_id from card_table where #{cid}=id
+  </select>
+  <!-- =================================================================================== -->
+  <!-- =================================================================================== -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from card_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from card_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tobuy.pojo.CardTable">
+    insert into card_table (id, title, type, 
+      date, read_count, user_id, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{date,jdbcType=TIMESTAMP}, #{readCount,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  
+  
+  
+  
+  <insert id="insertSelective" parameterType="com.tobuy.pojo.CardTable" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into card_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="readCount != null">
+        read_count,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readCount != null">
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.tobuy.pojo.CardTable">
+    update card_table
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tobuy.pojo.CardTable">
+    update card_table
+    set title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      read_count = #{readCount,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tobuy.pojo.CardTable">
+    update card_table
+    set title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      read_count = #{readCount,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+
+  
+  
+</mapper>

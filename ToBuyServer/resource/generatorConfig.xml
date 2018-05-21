@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1">
+    <commentGenerator>
+		<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+		<property name="suppressAllComments" value="true" />
+	</commentGenerator>
+    <jdbcConnection connectionURL="jdbc:mysql://127.0.0.1:3306/tobuy" driverClass="com.mysql.jdbc.Driver" password="huang1359!@#$" userId="root" />
+	 <javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+	</javaTypeResolver>
+	
+	
+	
+   
+    <javaModelGenerator targetPackage="com.tobuy.pojo" targetProject="ToBuyServer" />
+    <sqlMapGenerator targetPackage="com.tobuy.mapper" targetProject="ToBuyServer" />
+    <javaClientGenerator targetPackage="com.tobuy.mapper" targetProject="ToBuyServer" type="XMLMAPPER" />
+    
+    <table tableName="card_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="goods_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="message_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="resource_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="tag_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="user_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="card_history_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="goods_history_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="card_message_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="goods_message_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="user_message_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="card_resource_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="goods_resource_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="message_resource_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+	<table tableName="card_tag_table" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  </context>
+</generatorConfiguration>
+

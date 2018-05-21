@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.focustech.tobuy">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!--实例化程序句柄-->
+    <application
+        android:name="com.focustech.tobuy.EBApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false">
+
+        <!--主窗口设置-->
+        <activity android:name="com.focustech.tobuy.ui.personcenter.activity.login.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.personcenter.activity.home.HomeActivity"/>
+        <activity android:name=".ui.personcenter.activity.home.GoodsDetailActivity"/>
+        <activity android:name=".ui.personcenter.activity.home.GuideSortedActivity"/>
+
+        <activity android:name=".ui.personcenter.activity.login.LoginActivity"/>
+        <activity android:name=".ui.personcenter.activity.login.RegisterActivity"/>
+
+        <activity android:name=".ui.personcenter.activity.personal.SimplePersonalActivity"/>
+        <activity android:name=".ui.personcenter.activity.personal.function.AccountActivity" />
+        <activity android:name=".ui.personcenter.activity.personal.function.HistoryActivity" />
+        <activity android:name=".ui.personcenter.activity.personal.function.PersonalActivity" />
+        <activity android:name=".ui.personcenter.activity.personal.function.SaleGoodsActivity" />
+
+        <activity android:name=".ui.personcenter.activity.publish.PublishActivity" />
+
+        <activity android:name=".ui.personcenter.activity.message.MessageActivity"/>
+        <activity android:name=".ui.personcenter.activity.message.PostActivity" />
+
+        <activity android:name=".ui.personcenter.activity.community.CommunityActivity" />
+        <activity android:name=".ui.personcenter.activity.community.CardActivity" />
+
+        <activity android:name=".ui.personcenter.activity.search.SearchActivity" />
+
+
+    </application>
+
+</manifest>
